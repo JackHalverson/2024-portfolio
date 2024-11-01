@@ -32,6 +32,7 @@ export default function Scene() {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
       <Canvas
+        dpr={[1.5, 2]}
         frameloop="demand"
         shadows
         style={{ background: '#111111' }}
