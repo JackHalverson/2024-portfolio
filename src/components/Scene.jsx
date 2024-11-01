@@ -1,44 +1,48 @@
 // Scene.jsx
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import React from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
+import React, { useEffect } from 'react'
 import Model from './Model'
-import { OrbitControls, Environment } from '@react-three/drei'
+import { Environment, Stats } from '@react-three/drei'
+
+function SceneCamera() {
+  const { camera, size } = useThree()
+  const frustumSize = 10
+
+  useEffect(() => {
+    const updateCamera = () => {
+      const aspect = size.width / size.height
+      camera.left = -frustumSize * aspect / 2
+      camera.right = frustumSize * aspect / 2
+      camera.top = frustumSize / 2
+      camera.bottom = -frustumSize / 2
+      camera.updateProjectionMatrix()
+    }
+
+    updateCamera() // Initial update on mount
+    window.addEventListener('resize', updateCamera) // Update on window resize
+    return () => window.removeEventListener('resize', updateCamera)
+  }, [camera, size])
+
+  return null
+}
 
 export default function Scene() {
-  const aspect = window.innerWidth / window.innerHeight
-  const frustumSize = 10 // Adjust based on the scene scale you want
-
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
       <Canvas
+        dpr={[1, 1.5]}
+        frameloop="demand"
         shadows
         style={{ background: '#111111' }}
         orthographic
-        camera={{
-          left: -frustumSize * aspect / 2,
-          right: frustumSize * aspect / 2,
-          top: frustumSize / 2,
-          bottom: -frustumSize / 2,
-          near: 0.1,
-          far: 100,
-          position: [0, 5, 10], // Adjust position as needed
-          zoom: 1.5, // Adjust zoom level for desired scale
-        }}
+        camera={{ position: [0, 0, 10], zoom: 2 }}
       >
-        {/* 3D Model */}
+        <Stats />
+        <SceneCamera />
         <Model />
-
-        {/* Lighting */}
-        <ambientLight intensity={0.5} />
-        <directionalLight intensity={1.5} position={[2, 5, 5]} castShadow />
-
-        {/* Environment */}
         <Environment preset="city" />
-
-        {/* Controls */}
-        <OrbitControls />
       </Canvas>
     </div>
   )
