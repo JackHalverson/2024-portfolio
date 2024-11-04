@@ -1,5 +1,5 @@
+import AnimatedSvgPath from '@/components/AnimatedSvgPath'
 import dynamic from 'next/dynamic'
-import styles from './page.module.css'
 
 const Scene = dynamic(() => import('@/components/Scene'), {
     ssr: false,
@@ -7,8 +7,9 @@ const Scene = dynamic(() => import('@/components/Scene'), {
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main className='bg-[rgb(17,17,17)]'>
         <Scene />
+        <AnimatedSvgPath />
     </main>
   )
 }
