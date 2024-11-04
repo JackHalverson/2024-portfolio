@@ -4,7 +4,7 @@
 import { Canvas, useThree } from '@react-three/fiber'
 import React, { useEffect } from 'react'
 import Model from './Model'
-import { Environment, Stats } from '@react-three/drei'
+import { Environment, OrbitControls, Stats } from '@react-three/drei'
 
 function SceneCamera() {
   const { camera, size } = useThree()
@@ -32,7 +32,7 @@ export default function Scene() {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
       <Canvas
-        dpr={[1.5, 2]}
+        dpr={[1, 1.5]}
         frameloop="demand"
         shadows
         style={{ background: '#111111' }}
@@ -42,7 +42,8 @@ export default function Scene() {
         <Stats />
         <SceneCamera />
         <Model />
-        <Environment preset="city" />
+        <Environment preset="studio" />
+        {/* <OrbitControls /> */}
       </Canvas>
     </div>
   )
