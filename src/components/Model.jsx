@@ -9,23 +9,23 @@ import { useFrame } from '@react-three/fiber'
 export default function Model(props) {
   const { nodes } = useGLTF('/medias/LandingShapes.glb')
 
-  // const materialProps = useControls({
-  //   thickness: { value: 0.3, min: 0, max: 3, step: 0.05 },
-  //   roughness: { value: 0.5, min: 0, max: 1, step: 0.1 },
-  //   transmission: { value: 1, min: 0, max: 1, step: 0.1 },
-  //   ior: { value: 0.9, min: 0, max: 3, step: 0.1 },
-  //   chromaticAberration: { value: 0.3, min: 0, max: 1 },
-  //   backside: { value: false },
-  // })
+  const materialProps = useControls({
+    thickness: { value: 0.3, min: 0, max: 3, step: 0.05 },
+    roughness: { value: 0.5, min: 0, max: 1, step: 0.1 },
+    transmission: { value: 1, min: 0, max: 1, step: 0.1 },
+    ior: { value: 0.9, min: 0, max: 3, step: 0.1 },
+    chromaticAberration: { value: 0.3, min: 0, max: 1 },
+    backside: { value: false },
+  })
 
-  const materialProps = {
-    thickness: 0.3,
-    roughness: 0.5,
-    transmission: 1,
-    ior: 0.9,
-    chromaticAberration: 0.3,
-    backside: false,
-  }
+  // const materialProps = {
+  //   thickness: 0.3,
+  //   roughness: 0.5,
+  //   transmission: 1,
+  //   ior: 0.9,
+  //   chromaticAberration: 0.3,
+  //   backside: false,
+  // }
 
   const D20Geometry = useMemo(() => nodes.D20.geometry, [nodes.D20.geometry])
   const torusGeometry = useMemo(() => nodes.Torus.geometry, [nodes.Torus.geometry])
