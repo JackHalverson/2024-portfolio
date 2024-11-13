@@ -61,7 +61,7 @@ export default function Gm() {
           anchorX="center"
           anchorY="middle"
         >
-          Gotem
+          Gotem'
         </Text>
         {/* Controls for orbiting around the model */}
         <OrbitControls />
