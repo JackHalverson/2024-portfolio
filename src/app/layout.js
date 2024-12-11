@@ -2,6 +2,7 @@ import './globals.css'
 import './styles.css'
 import ShaderBackground from '@/components/ShaderBackground'
 import Navbar from '@/components/Navbar'
+import CustomCursor from '@/components/CustomCursor'
 
 export const metadata = {
   title: 'Jackson Halverson 2024 Portfolio',
@@ -15,8 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
-        <ShaderBackground />
+        {/* <ShaderBackground />
         <Navbar />
+        <CustomCursor /> */}
         {children}
       </body>
     </html>

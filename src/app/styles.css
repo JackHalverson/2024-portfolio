@@ -45,7 +45,7 @@ section {
   width: 1800px;    /* Set a fixed width */
   height: 1000px;  /* Set a fixed height */
   transform: translate(-50%, -50%); /* Center the SVG */
-  z-index: 0;
+  z-index: -1;
 }
 
 .st0 {

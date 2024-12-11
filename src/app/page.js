@@ -5,6 +5,7 @@ import SvgPathLoader from '@/components/SvgPathLoader'
 import AnimatedSvgPath from '@/components/AnimatedSvgPath'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
+import CustomCursor from '@/components/CustomCursor'
 
 // Load Scene dynamically with SSR disabled
 const Scene = dynamic(() => import('@/components/Scene'), { ssr: false })
@@ -32,6 +33,7 @@ export default function Home() {
 
   return (
     <main>
+      <CustomCursor />
       <AnimatePresence mode="wait">
         {isLoading && (
           <motion.div
@@ -61,7 +63,7 @@ export default function Home() {
           {/* Second Section: Text and Animated SVG Path */}
           <section className='relative'>
             <div className='text-center'>
-              <h1>About me</h1>
+              <h1 className='cursor-hover'>About Me</h1>
               <p>Explore my work and projects below</p>
             </div>
             <AnimatedSvgPath />

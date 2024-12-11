@@ -19,12 +19,13 @@ export default function Model(props) {
   // })
 
   const materialProps = {
-    thickness: 0.3,
+    thickness: 0.5,
+    resolution: 256,
     roughness: 0.5,
     transmission: 1,
     ior: 0.9,
     chromaticAberration: 0.3,
-    clearcoat: 0.3,
+    clearcoat: 0.8,
     backside: false,
   }
 
@@ -147,7 +148,7 @@ export default function Model(props) {
       </mesh>
       <mesh 
         geometry={diskGeometry} 
-        position={[-1.27, -1.213 + (parallaxOffset*1.2) + (bobOffset*.9), 3.021]} 
+        position={[-1.27, -.5 + (parallaxOffset*1.2) + (bobOffset*.9), 3.021]} 
         rotation={[-2.536 + rotation.x*1.1, -0.746 + rotation.y*.7, -2.822]} 
         scale={0.44}>
         <MeshTransmissionMaterial {...materialProps} samples={4} />
