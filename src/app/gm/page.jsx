@@ -4,34 +4,34 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, MeshTransmissionMaterial, useGLTF, Environment, Text } from '@react-three/drei';
+import { useControls } from 'leva';
 
 // Define your 3D model component
 function Model(props) {
-  const { nodes } = useGLTF('/medias/gotem.glb');
+  const { nodes } = useGLTF('/medias/bustv1.glb');
   const ref = useRef();
 
-  const materialProps = {
-    thickness: 9,
-    roughness: 0.5,
-    transmission: 1,
-    ior: 0.9,
-    chromaticAberration: 0.7,
-    clearcoat: 0.3,
-    backside: false,
-  };
+  const materialProps = useControls({
+    thickness: { value: 0.3, min: 0, max: 3, step: 0.05 },
+    roughness: { value: 0.5, min: 0, max: 1, step: 0.1 },
+    transmission: { value: 1, min: 0, max: 1, step: 0.1 },
+    ior: { value: 0.9, min: 0, max: 3, step: 0.1 },
+    chromaticAberration: { value: 0.3, min: 0, max: 1 },
+    backside: { value: false },
+  })
 
   // Add subtle rotation and bob animation
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (ref.current) {
       ref.current.rotation.y = t * 0.1; // Slow rotation
-      ref.current.position.y = 0.5 + Math.sin(t * 0.5) * 0.05; // Subtle bobbing
+      ref.current.position.y = 0 + Math.sin(t * 0.5) * 0.05; // Subtle bobbing
     }
   });
 
   return (
-    <group ref={ref} {...props} dispose={null} scale={0.01}>
-      <mesh castShadow receiveShadow geometry={nodes.gotem.geometry} position={[0, 7.578, 0]} rotation={[1.082, 1.331, 1.407]}>
+    <group ref={ref} {...props} dispose={null} scale={1.5}>
+      <mesh castShadow receiveShadow geometry={nodes.Mesh_0.geometry}>
         <MeshTransmissionMaterial {...materialProps} />
       </mesh>
     </group>
@@ -39,7 +39,7 @@ function Model(props) {
 }
 
 // Preload the model
-useGLTF.preload('/medias/gotem.glb');
+useGLTF.preload('/medias/bustv1.glb');
 
 // Main page component
 export default function Gm() {
@@ -52,7 +52,7 @@ export default function Gm() {
         {/* Add environment preset */}
         <Environment preset="city" />
         {/* Render the model */}
-        <Model position={[0, 0.5, 0]} />
+        <Model position={[0, 0, 0]} />
         <Text
           font={"/fonts/PPNeueMontreal-Bold.otf"}
           position={[0, 0.5, -1]}
@@ -61,7 +61,7 @@ export default function Gm() {
           anchorX="center"
           anchorY="middle"
         >
-          Gotem
+          Hello World
         </Text>
         {/* Controls for orbiting around the model */}
         <OrbitControls />
