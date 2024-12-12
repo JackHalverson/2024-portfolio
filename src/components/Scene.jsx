@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useMotionValue, animate } from 'framer-motion'
 import Model from './Model'
 import { Environment, Stats } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 
 function SceneCamera() {
   const { camera, size } = useThree()
@@ -67,7 +68,8 @@ export default function Scene() {
         <SceneCamera />
         <SceneLighting />
         <Model />
-        <Environment preset="studio" />
+        <Environment preset="city" />
+        {/* <OrbitControls /> */}
       </Canvas>
     </div>
   )

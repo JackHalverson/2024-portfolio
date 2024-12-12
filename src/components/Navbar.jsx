@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import './styles/Navbar.css'
+import '../styles/Navbar.css'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)

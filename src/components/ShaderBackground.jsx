@@ -25,12 +25,12 @@ const GradientMaterial = shaderMaterial(
     uniform float time;
     varying vec2 vUv;
 
-    // Perlin noise function for randomness
+    // Noise function for randomness
     float noise(vec2 p) {
-      return fract(sin(dot(p, vec2(20.9898, 78.233))) * 43758.5453);
+      return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
     }
 
-    // Smooth noise function
+    // Large-scale smooth noise
     float smoothNoise(vec2 p) {
       vec2 i = floor(p);
       vec2 f = fract(p);
@@ -44,30 +44,24 @@ const GradientMaterial = shaderMaterial(
       return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
     }
 
-    // Grain function for consistent noise
-    float grain(vec2 uv) {
-      return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
-    }
-
     void main() {
       vec2 uv = vUv;
 
-      // Base dark color (#111111)
-      vec3 color = vec3(0.067, 0.067, 0.067);
+      // Base black color
+      vec3 color = vec3(0.0);
 
-      // Add Perlin noise for wavy randomness
-      float wave = smoothNoise(uv * 4.0 + time * 0.1) * 0.5;
+      // Generate large-scale waves
+      float wave1 = smoothNoise(uv * 4.0 + time * 0.2) * 0.3;
+      float wave2 = smoothNoise(uv * 6.0 - time * 0.15) * 0.2;
 
-      // Create subtle white spots
-      float intensity = smoothstep(0.4, 0.5, wave);
-      vec3 whiteSpot = vec3(intensity);
+      // Combine waves to create a dynamic pattern
+      float combinedWaves = wave1;
 
-      // Combine base color and white spot
-      color += whiteSpot;
+      // Add large grainy noise
+      float grain = noise(uv * 50.0) * 0.1;
 
-      // Add consistent grain overlay
-      float noiseValue = grain(uv * 20.0) * 0.03;
-      color += noiseValue;
+      // Mix the waves and grain into the base black color
+      color += vec3(combinedWaves * 0.3 + grain * 0.8);
 
       gl_FragColor = vec4(color, 1.0);
     }
@@ -93,7 +87,7 @@ function GradientPlane() {
 export default function ShaderBackground() {
   return (
     <Canvas
-      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}
+      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -10 }}
       camera={{ position: [0, 0, 1] }}
     >
       <GradientPlane />

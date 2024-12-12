@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import './styles/customCursor.css'
+import '../styles/customCursor.css'
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })

@@ -1,0 +1,15 @@
+Frontend:
+React
+Next.js
+Tailwind
+Typescript
+
+Design:
+Figma
+Ilustrator
+Photoshop
+
+Backend(worked with, not directly):
+graphql
+apollo
+supabase
