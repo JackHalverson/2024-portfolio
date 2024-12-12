@@ -6,8 +6,9 @@ import AnimatedSvgPath from '@/components/AnimatedSvgPath'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import CustomCursor from '@/components/CustomCursor'
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, MeshTransmissionMaterial, useGLTF, Environment, Svg } from '@react-three/drei'
+import { useRouter } from 'next/navigation' // Import useRouter
 import "./styles.css"
 import ShaderBackground from '@/components/ShaderBackground'
 import TiltHoverCard from '@/components/TiltHoverCard'
@@ -27,6 +28,7 @@ const emblemSvgDataUrl = `data:image/svg+xml;base64,${btoa(`
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [SceneComponent, setSceneComponent] = useState(null);
+  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const loadScene = async () => {
@@ -38,6 +40,10 @@ export default function Home() {
     const timer = setTimeout(() => setIsLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCardClick = () => {
+    router.push('/howltech'); // Navigate to the howltech page
+  };
 
   return (
     <main>
@@ -83,19 +89,31 @@ export default function Home() {
               </div>
             </div>
           </article>
+
+          <div className='project-title'>
+            <h1>Works</h1>
+          </div>
+
           <div className='cards'>
             <TiltHoverCard>
-              <div className='howltech card'>
+              <div 
+                className='howltech card' 
+                onClick={handleCardClick} 
+                style={{ cursor: 'pointer' }} // Add pointer cursor to indicate interactivity
+              >
                 <img src='/photos/HowlTech/PhoneMockup.jpg' className='card-photo' />
                 <div className='card-content'>
                   <h2 className='card-title'>HowlTech</h2>
-                  <p className='card-description'>A description for HowlTech goes here.</p>
+                  <p className='card-description'>
+                    Inventory tracking software with intuitive displays and systems.
+                  </p>
                 </div>
               </div>
             </TiltHoverCard>
 
             {/* Add more cards as needed */}
           </div>
+
           <AnimatedSvgPath />
         </motion.div>
       )}
@@ -135,19 +153,19 @@ function Model(props) {
   const ref = useRef();
 
   const materialProps = {
-    thickness: 0.5,
+    thickness: 0.6,
     resolution: 256,
     roughness: 0.5,
     transmission: 1,
     ior: 0.9,
     chromaticAberration: 0.3,
-    clearcoat: 0.3,
+    clearcoat: 1,
     backside: true,
   }
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    if (ref.current) {
+    if (ref.current) { 
       ref.current.rotation.y = t * 0.1;
       ref.current.position.y = 0 + Math.sin(t * 0.5) * 0.05;
     }
